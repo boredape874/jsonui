@@ -1,0 +1,1891 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마인크래프트 베드락 에디션 JSON UI 완벽 가이드</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Malgun Gothic', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        h2 {
+            color: #34495e;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-left: 10px;
+            border-left: 5px solid #3498db;
+            font-size: 1.8em;
+        }
+
+        h3 {
+            color: #555;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        h4 {
+            color: #666;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .toc {
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+
+        .toc h2 {
+            margin-top: 0;
+            border-left: none;
+            padding-left: 0;
+        }
+
+        .toc ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+
+        .toc li {
+            margin: 8px 0;
+        }
+
+        .toc a {
+            color: #3498db;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .toc a:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+
+        code {
+            background-color: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+            color: #e74c3c;
+        }
+
+        pre {
+            background-color: #282c34;
+            color: #abb2bf;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+
+        pre code {
+            background-color: transparent;
+            color: #abb2bf;
+            padding: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .warning {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .info {
+            background-color: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .tip {
+            background-color: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .example {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .example h4 {
+            color: #3498db;
+            margin-top: 0;
+        }
+
+        ul, ol {
+            margin-left: 30px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        .property-list {
+            background-color: #f8f9fa;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        .deprecated {
+            text-decoration: line-through;
+            color: #999;
+        }
+
+        .footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 2px solid #ecf0f1;
+            text-align: center;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎮 마인크래프트 베드락 에디션 JSON UI 완벽 가이드</h1>
+
+        <div class="warning">
+            <strong>⚠️ 중요 공지:</strong> JSON UI는 Ore UI로 대체될 예정입니다. 향후 몇 년 내에 JSON UI를 사용하는 애드온은 작동하지 않을 수 있습니다. Ore UI는 하드코딩되어 있어 리소스 팩으로 수정할 수 없습니다.
+        </div>
+
+        <div class="toc">
+            <h2>📑 목차</h2>
+            <ul>
+                <li><a href="#introduction">1. JSON UI 소개</a></li>
+                <li><a href="#setup">2. 기본 설정</a></li>
+                <li><a href="#elements">3. UI 요소 타입</a></li>
+                <li><a href="#properties">4. 주요 속성</a></li>
+                <li><a href="#bindings">5. 데이터 바인딩</a></li>
+                <li><a href="#animations">6. 애니메이션</a></li>
+                <li><a href="#hud">7. HUD 요소 추가하기</a></li>
+                <li><a href="#server-forms">8. 서버 폼 매핑</a></li>
+                <li><a href="#buttons">9. 버튼과 토글</a></li>
+                <li><a href="#operators">10. 연산자 사용</a></li>
+                <li><a href="#modifications">11. 수정 전략</a></li>
+                <li><a href="#best-practices">12. 베스트 프랙티스</a></li>
+                <li><a href="#terminology">13. 전체 용어 정리</a></li>
+            </ul>
+        </div>
+
+        <h2 id="introduction">1. JSON UI 소개</h2>
+
+        <p>마인크래프트 베드락 에디션의 사용자 인터페이스는 데이터 기반으로 작동하며 수정이 가능합니다. JSON UI를 사용하면 특정 사용자 인터페이스가 렌더링되고 동작하는 방식을 어느 정도 수정할 수 있습니다.</p>
+
+        <h3>1.1 JSON UI 파일 구조</h3>
+
+        <p>모든 바닐라 UI 파일은 <code>RP/ui/...</code> 폴더에 저장됩니다.</p>
+
+        <h4>시스템 파일</h4>
+        <ul>
+            <li><code>_global_variables.json</code> - 나중에 사용할 기본 변수 정의</li>
+            <li><code>_ui_defs.json</code> - UI에서 사용되는 파일 참조</li>
+        </ul>
+
+        <h4>화면 파일</h4>
+        <ul>
+            <li><code>hud_screen.json</code> - 핫바 등 게임 내 기능이 렌더링되는 메인 게임플레이 화면</li>
+            <li><code>inventory_screen.json</code> - 플레이어의 인벤토리 화면</li>
+            <li><code>server_form.json</code> - 서버 폼 화면</li>
+            <li>기타 화면 파일들...</li>
+        </ul>
+
+        <h4>템플릿 파일</h4>
+        <ul>
+            <li><code>ui_common.json</code> - 버튼과 같이 대부분의 네임스페이스에서 참조되는 요소 포함</li>
+            <li><code>ui_template_*.json</code> - 다른 네임스페이스에서 사용할 수 있도록 깔끔하게 정리된 요소 포함</li>
+        </ul>
+
+        <h2 id="setup">2. 기본 설정</h2>
+
+        <h3>2.1 UI Defs 설정</h3>
+
+        <p><code>_ui_defs.json</code> 파일은 모든 JSON UI 파일을 배열로 참조합니다.</p>
+
+        <div class="example">
+            <h4>예제: _ui_defs.json</h4>
+            <pre><code>{
+    "ui_defs": [
+        "ui/button.json",
+        "my_ui/main_menu.json"
+    ]
+}</code></pre>
+        </div>
+
+        <div class="tip">
+            <strong>💡 중요:</strong>
+            <ul>
+                <li>리소스 팩 루트 폴더부터 파일 확장자를 포함한 전체 경로를 작성하세요</li>
+                <li>새로 추가한 UI 파일만 참조하면 됩니다 (바닐라 파일은 자동 병합)</li>
+                <li><code>RP/ui/...</code> 폴더 외부의 커스텀 경로도 사용 가능합니다</li>
+            </ul>
+        </div>
+
+        <h3>2.2 전역 변수</h3>
+
+        <p><code>_global_variables.json</code>에서 변수와 값을 정의할 수 있습니다:</p>
+
+        <div class="example">
+            <h4>예제: _global_variables.json</h4>
+            <pre><code>{
+    "$info_text_color": [0.8, 0.8, 0.8],
+    "$button_size": [100, 20]
+}</code></pre>
+        </div>
+
+        <h3>2.3 네임스페이스</h3>
+
+        <p>네임스페이스는 UI 파일의 식별자입니다. 모든 파일에서 요소에 액세스하는 데 사용됩니다.</p>
+
+        <div class="example">
+            <h4>예제: 네임스페이스 사용</h4>
+            <pre><code>{
+    "namespace": "my_namespace",
+
+    "my_element": {
+        "type": "panel",
+        "size": [100, 50]
+    },
+
+    "extended_element@my_namespace.my_element": {
+        "size": [200, 50]
+    }
+}</code></pre>
+        </div>
+
+        <h2 id="elements">3. UI 요소 타입</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>타입</th>
+                    <th>설명</th>
+                    <th>주요 용도</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>panel</code></td>
+                    <td>HTML의 &lt;div&gt;와 유사한 컨테이너</td>
+                    <td>다른 요소들을 그룹화</td>
+                </tr>
+                <tr>
+                    <td><code>stack_panel</code></td>
+                    <td>자식 요소를 방향에 따라 스택</td>
+                    <td>수직/수평 레이아웃</td>
+                </tr>
+                <tr>
+                    <td><code>collection_panel</code></td>
+                    <td>동적 컬렉션 표시</td>
+                    <td>리스트 형태의 UI</td>
+                </tr>
+                <tr>
+                    <td><code>grid</code></td>
+                    <td>그리드 형태의 요소 배치</td>
+                    <td>인벤토리, 아이템 그리드</td>
+                </tr>
+                <tr>
+                    <td><code>label</code></td>
+                    <td>텍스트 요소</td>
+                    <td>텍스트 표시</td>
+                </tr>
+                <tr>
+                    <td><code>image</code></td>
+                    <td>스프라이트/이미지 요소</td>
+                    <td>이미지, 아이콘 표시</td>
+                </tr>
+                <tr>
+                    <td><code>button</code></td>
+                    <td>클릭 가능한 버튼</td>
+                    <td>사용자 입력 처리</td>
+                </tr>
+                <tr>
+                    <td><code>toggle</code></td>
+                    <td>체크/비체크 상태를 가진 토글</td>
+                    <td>옵션 선택</td>
+                </tr>
+                <tr>
+                    <td><code>slider</code></td>
+                    <td>범위 입력 요소</td>
+                    <td>값 조정 (볼륨 등)</td>
+                </tr>
+                <tr>
+                    <td><code>edit_box</code></td>
+                    <td>텍스트 입력 필드</td>
+                    <td>텍스트 입력</td>
+                </tr>
+                <tr>
+                    <td><code>scroll_view</code></td>
+                    <td>스크롤 가능한 패널</td>
+                    <td>긴 콘텐츠 표시</td>
+                </tr>
+                <tr>
+                    <td><code>factory</code></td>
+                    <td>요소 생성기</td>
+                    <td>동적 UI 생성</td>
+                </tr>
+                <tr>
+                    <td><code>screen</code></td>
+                    <td>화면 요소</td>
+                    <td>루트 화면 정의</td>
+                </tr>
+                <tr>
+                    <td><code>custom</code></td>
+                    <td>커스텀 렌더러</td>
+                    <td>특수 렌더링</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="properties">4. 주요 속성</h2>
+
+        <h3>4.1 Control 속성</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>속성</th>
+                    <th>타입</th>
+                    <th>기본값</th>
+                    <th>설명</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>visible</code></td>
+                    <td>boolean</td>
+                    <td>true</td>
+                    <td>UI 요소의 표시 여부</td>
+                </tr>
+                <tr>
+                    <td><code>enabled</code></td>
+                    <td>boolean</td>
+                    <td>true</td>
+                    <td>UI 요소의 활성화 여부</td>
+                </tr>
+                <tr>
+                    <td><code>layer</code></td>
+                    <td>int</td>
+                    <td>0</td>
+                    <td>Z-Index (렌더링 순서)</td>
+                </tr>
+                <tr>
+                    <td><code>alpha</code></td>
+                    <td>float</td>
+                    <td>1.0</td>
+                    <td>투명도 (0.0 ~ 1.0)</td>
+                </tr>
+                <tr>
+                    <td><code>propagate_alpha</code></td>
+                    <td>boolean</td>
+                    <td>false</td>
+                    <td>자식 요소에도 alpha 적용</td>
+                </tr>
+                <tr>
+                    <td><code>clips_children</code></td>
+                    <td>boolean</td>
+                    <td>false</td>
+                    <td>경계 밖의 자식 요소 잘라내기</td>
+                </tr>
+                <tr>
+                    <td><code>ignored</code></td>
+                    <td>boolean</td>
+                    <td>false</td>
+                    <td>요소 무시 (렌더링 안함)</td>
+                </tr>
+                <tr>
+                    <td><code>controls</code></td>
+                    <td>array</td>
+                    <td>-</td>
+                    <td>자식 요소 배열</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>4.2 Layout 속성</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>속성</th>
+                    <th>타입</th>
+                    <th>기본값</th>
+                    <th>설명</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>size</code></td>
+                    <td>[width, height]</td>
+                    <td>["default", "default"]</td>
+                    <td>요소의 크기</td>
+                </tr>
+                <tr>
+                    <td><code>offset</code></td>
+                    <td>[x, y]</td>
+                    <td>[0, 0]</td>
+                    <td>위치 오프셋</td>
+                </tr>
+                <tr>
+                    <td><code>anchor_from</code></td>
+                    <td>enum</td>
+                    <td>center</td>
+                    <td>부모 요소의 앵커 지점</td>
+                </tr>
+                <tr>
+                    <td><code>anchor_to</code></td>
+                    <td>enum</td>
+                    <td>center</td>
+                    <td>자신의 앵커 지점</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>Size 값 옵션</h4>
+        <div class="property-list">
+            <ul>
+                <li><code>"default"</code> - 기본값 (100%)</li>
+                <li><code>0</code> - 픽셀 단위 숫자</li>
+                <li><code>"0px"</code> - 픽셀 단위 문자열</li>
+                <li><code>"0%"</code> - 부모 요소 대비 퍼센트</li>
+                <li><code>"0%c"</code> - 자식 요소 대비 퍼센트</li>
+                <li><code>"0%cm"</code> - 가장 큰 자식 요소 대비</li>
+                <li><code>"0%sm"</code> - 형제 요소 대비</li>
+                <li><code>"0%y"</code> - 자신의 높이 대비</li>
+                <li><code>"0%x"</code> - 자신의 너비 대비</li>
+                <li><code>"fill"</code> - 부모의 남은 공간 채우기</li>
+            </ul>
+        </div>
+
+        <h4>Anchor 값 옵션</h4>
+        <div class="property-list">
+            <ul>
+                <li><code>top_left</code></li>
+                <li><code>top_middle</code></li>
+                <li><code>top_right</code></li>
+                <li><code>left_middle</code></li>
+                <li><code>center</code></li>
+                <li><code>right_middle</code></li>
+                <li><code>bottom_left</code></li>
+                <li><code>bottom_middle</code></li>
+                <li><code>bottom_right</code></li>
+            </ul>
+        </div>
+
+        <h3>4.3 Text 속성 (label 타입)</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>속성</th>
+                    <th>타입</th>
+                    <th>기본값</th>
+                    <th>설명</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>text</code></td>
+                    <td>string</td>
+                    <td>-</td>
+                    <td>표시할 텍스트</td>
+                </tr>
+                <tr>
+                    <td><code>color</code></td>
+                    <td>[r, g, b]</td>
+                    <td>[1.0, 1.0, 1.0]</td>
+                    <td>텍스트 색상 (0.0~1.0)</td>
+                </tr>
+                <tr>
+                    <td><code>shadow</code></td>
+                    <td>boolean</td>
+                    <td>false</td>
+                    <td>텍스트 그림자</td>
+                </tr>
+                <tr>
+                    <td><code>font_size</code></td>
+                    <td>enum</td>
+                    <td>normal</td>
+                    <td>small, normal, large, extra_large</td>
+                </tr>
+                <tr>
+                    <td><code>font_scale_factor</code></td>
+                    <td>float</td>
+                    <td>1.0</td>
+                    <td>텍스트 크기 배율</td>
+                </tr>
+                <tr>
+                    <td><code>font_type</code></td>
+                    <td>enum</td>
+                    <td>default</td>
+                    <td>default, rune, unicode, smooth 등</td>
+                </tr>
+                <tr>
+                    <td><code>localize</code></td>
+                    <td>boolean</td>
+                    <td>false</td>
+                    <td>텍스트 번역 가능 여부</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>4.4 Sprite 속성 (image 타입)</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>속성</th>
+                    <th>타입</th>
+                    <th>설명</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>texture</code></td>
+                    <td>string</td>
+                    <td>이미지 경로 (예: "textures/ui/White")</td>
+                </tr>
+                <tr>
+                    <td><code>uv</code></td>
+                    <td>[u, v]</td>
+                    <td>텍스처 매핑 시작 위치</td>
+                </tr>
+                <tr>
+                    <td><code>uv_size</code></td>
+                    <td>[width, height]</td>
+                    <td>텍스처 매핑 크기</td>
+                </tr>
+                <tr>
+                    <td><code>nineslice_size</code></td>
+                    <td>int 또는 [x0, y0, x1, y1]</td>
+                    <td>9-slice 이미지 설정</td>
+                </tr>
+                <tr>
+                    <td><code>tiled</code></td>
+                    <td>boolean 또는 "x"/"y"</td>
+                    <td>타일 형태로 반복</td>
+                </tr>
+                <tr>
+                    <td><code>clip_direction</code></td>
+                    <td>enum</td>
+                    <td>left, right, up, down, center</td>
+                </tr>
+                <tr>
+                    <td><code>clip_ratio</code></td>
+                    <td>float</td>
+                    <td>클리핑 비율 (0.0~1.0)</td>
+                </tr>
+                <tr>
+                    <td><code>bilinear</code></td>
+                    <td>boolean</td>
+                    <td>이미지 리사이즈 시 바이리니어 필터</td>
+                </tr>
+                <tr>
+                    <td><code>grayscale</code></td>
+                    <td>boolean</td>
+                    <td>흑백 렌더링</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="bindings">5. 데이터 바인딩</h2>
+
+        <p>바인딩은 하드코딩된 값을 요소에 연결하고 처리하는 데 사용됩니다. <code>#</code> 기호로 시작하는 바인딩 변수를 사용합니다.</p>
+
+        <h3>5.1 기본 바인딩</h3>
+
+        <div class="example">
+            <h4>예제: 간단한 바인딩</h4>
+            <pre><code>{
+    "label": {
+        "type": "label",
+        "text": "#hardtext",
+        "bindings": [
+            {
+                "binding_name": "#hardtext"
+            }
+        ]
+    }
+}</code></pre>
+        </div>
+
+        <h3>5.2 바인딩 타입</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>타입</th>
+                    <th>설명</th>
+                    <th>사용 예시</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>global</code></td>
+                    <td>전역 바인딩</td>
+                    <td>게임 전체에서 사용되는 값</td>
+                </tr>
+                <tr>
+                    <td><code>view</code></td>
+                    <td>뷰 바인딩</td>
+                    <td>다른 요소의 속성 참조</td>
+                </tr>
+                <tr>
+                    <td><code>collection</code></td>
+                    <td>컬렉션 바인딩</td>
+                    <td>동적 리스트 데이터</td>
+                </tr>
+                <tr>
+                    <td><code>collection_details</code></td>
+                    <td>컬렉션 상세 정보</td>
+                    <td>컬렉션의 세부 데이터</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>5.3 View 바인딩 (다른 요소 참조)</h3>
+
+        <div class="example">
+            <h4>예제: 토글 상태로 패널 표시 제어</h4>
+            <pre><code>{
+    "my_panel": {
+        "type": "panel",
+        "bindings": [
+            {
+                "binding_type": "view",
+                "source_control_name": "my_toggle",
+                "source_property_name": "#toggle_state",
+                "target_property_name": "#visible"
+            }
+        ]
+    },
+
+    "my_toggle": {
+        "type": "toggle",
+        "$toggle_name": "my_toggle_id",
+        "$toggle_view_binding_name": "my_toggle"
+    }
+}</code></pre>
+        </div>
+
+        <h3>5.4 바인딩 조건</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>조건</th>
+                    <th>설명</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>always</code></td>
+                    <td>항상 바인딩</td>
+                </tr>
+                <tr>
+                    <td><code>always_when_visible</code></td>
+                    <td>표시될 때만 항상 바인딩</td>
+                </tr>
+                <tr>
+                    <td><code>visible</code></td>
+                    <td>표시될 때만 바인딩</td>
+                </tr>
+                <tr>
+                    <td><code>once</code></td>
+                    <td>한 번만 바인딩</td>
+                </tr>
+                <tr>
+                    <td><code>visibility_changed</code></td>
+                    <td>표시 상태 변경 시 바인딩</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="animations">6. 애니메이션</h2>
+
+        <p><code>type</code> 대신 <code>anim_type</code>을 사용하여 애니메이션을 생성할 수 있습니다.</p>
+
+        <h3>6.1 애니메이션 타입</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>anim_type</th>
+                    <th>설명</th>
+                    <th>값 범위</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>alpha</code></td>
+                    <td>투명도 애니메이션</td>
+                    <td>0.0 ~ 1.0</td>
+                </tr>
+                <tr>
+                    <td><code>offset</code></td>
+                    <td>위치 애니메이션</td>
+                    <td>[x, y]</td>
+                </tr>
+                <tr>
+                    <td><code>size</code></td>
+                    <td>크기 애니메이션</td>
+                    <td>[width, height]</td>
+                </tr>
+                <tr>
+                    <td><code>color</code></td>
+                    <td>색상 애니메이션</td>
+                    <td>[r, g, b]</td>
+                </tr>
+                <tr>
+                    <td><code>flip_book</code></td>
+                    <td>프레임 단위 애니메이션</td>
+                    <td>프레임 번호</td>
+                </tr>
+                <tr>
+                    <td><code>uv</code></td>
+                    <td>UV 텍스처 애니메이션</td>
+                    <td>[u, v]</td>
+                </tr>
+                <tr>
+                    <td><code>wait</code></td>
+                    <td>대기 애니메이션</td>
+                    <td>시간(초)</td>
+                </tr>
+                <tr>
+                    <td><code>clip</code></td>
+                    <td>클리핑 애니메이션</td>
+                    <td>0.0 ~ 1.0</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>6.2 애니메이션 속성</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>속성</th>
+                    <th>타입</th>
+                    <th>설명</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>duration</code></td>
+                    <td>number</td>
+                    <td>애니메이션 지속 시간(초)</td>
+                </tr>
+                <tr>
+                    <td><code>from</code></td>
+                    <td>varies</td>
+                    <td>시작 값</td>
+                </tr>
+                <tr>
+                    <td><code>to</code></td>
+                    <td>varies</td>
+                    <td>종료 값</td>
+                </tr>
+                <tr>
+                    <td><code>easing</code></td>
+                    <td>enum</td>
+                    <td>이징 함수 (linear, in_out_sine 등)</td>
+                </tr>
+                <tr>
+                    <td><code>next</code></td>
+                    <td>string</td>
+                    <td>다음에 재생할 애니메이션</td>
+                </tr>
+                <tr>
+                    <td><code>play_event</code></td>
+                    <td>string</td>
+                    <td>재생 트리거 이벤트</td>
+                </tr>
+                <tr>
+                    <td><code>reversible</code></td>
+                    <td>boolean</td>
+                    <td>완료 후 역재생</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>6.3 Easing 함수</h3>
+
+        <div class="property-list">
+            <ul>
+                <li><code>linear</code> - 선형</li>
+                <li><code>spring</code> - 스프링</li>
+                <li><code>in_quad</code>, <code>out_quad</code>, <code>in_out_quad</code> - 2차 함수</li>
+                <li><code>in_cubic</code>, <code>out_cubic</code>, <code>in_out_cubic</code> - 3차 함수</li>
+                <li><code>in_sine</code>, <code>out_sine</code>, <code>in_out_sine</code> - 사인 함수</li>
+                <li><code>in_expo</code>, <code>out_expo</code>, <code>in_out_expo</code> - 지수 함수</li>
+                <li><code>in_circ</code>, <code>out_circ</code>, <code>in_out_circ</code> - 원형 함수</li>
+                <li><code>in_bounce</code>, <code>out_bounce</code>, <code>in_out_bounce</code> - 바운스</li>
+                <li><code>in_elastic</code>, <code>out_elastic</code>, <code>in_out_elastic</code> - 탄성</li>
+            </ul>
+        </div>
+
+        <div class="example">
+            <h4>예제: 크기 애니메이션</h4>
+            <pre><code>{
+    "size_anim": {
+        "anim_type": "size",
+        "easing": "in_out_sine",
+        "from": [100, 20],
+        "to": [200, 40],
+        "duration": 1.5
+    },
+
+    "my_button": {
+        "type": "button",
+        "size": [100, 20],
+        "anims": [
+            "@namespace.size_anim"
+        ]
+    }
+}</code></pre>
+        </div>
+
+        <h2 id="hud">7. HUD 요소 추가하기</h2>
+
+        <p>HUD(Heads-Up Display) 화면은 게임 중 대부분의 시간 동안 표시됩니다. HUD에 요소를 추가하려면 <code>root_panel</code>에 새로운 컨트롤을 추가해야 합니다.</p>
+
+        <h3>7.1 개별 요소 추가</h3>
+
+        <div class="example">
+            <h4>예제: HUD에 이미지와 텍스트 추가</h4>
+            <pre><code>{
+    "namespace": "hud",
+
+    "hud_square": {
+        "type": "image",
+        "texture": "textures/ui/Black",
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "size": [64, 64],
+        "offset": [0, 4]
+    },
+
+    "hud_text": {
+        "type": "label",
+        "text": "HUD 텍스트",
+        "anchor_from": "top_right",
+        "anchor_to": "top_right",
+        "offset": [-4, 4]
+    },
+
+    "root_panel": {
+        "modifications": [
+            {
+                "array_name": "controls",
+                "operation": "insert_front",
+                "value": [
+                    { "hud_square@hud.hud_square": {} },
+                    { "hud_text@hud.hud_text": {} }
+                ]
+            }
+        ]
+    }
+}</code></pre>
+        </div>
+
+        <h3>7.2 패널로 그룹화</h3>
+
+        <div class="example">
+            <h4>예제: 여러 요소를 패널로 묶기</h4>
+            <pre><code>{
+    "hud_elements_panel": {
+        "type": "panel",
+        "controls": [
+            { "hud_square@hud_square": {} },
+            { "hud_text@hud_text": {} }
+        ]
+    },
+
+    "root_panel": {
+        "modifications": [
+            {
+                "array_name": "controls",
+                "operation": "insert_front",
+                "value": [
+                    { "hud_elements_panel@hud.hud_elements_panel": {} }
+                ]
+            }
+        ]
+    }
+}</code></pre>
+        </div>
+
+        <div class="tip">
+            <strong>💡 팁:</strong> 조직화를 위해 많은 요소를 개별적으로 추가하지 말고 패널로 묶는 것이 좋습니다. 이렇게 하면 관리가 쉬워지고 자식 요소들이 부모의 크기를 상속받아 앵커와 % 크기가 HUD 화면 기준으로 작동합니다.
+        </div>
+
+        <h2 id="server-forms">8. 서버 폼 매핑</h2>
+
+        <p>서버 폼은 서버에서 보내는 커스텀 UI를 표시하는 데 사용됩니다. 서버 폼을 수정하여 커스텀 디자인을 적용할 수 있습니다.</p>
+
+        <h3>8.1 Action Form (Long Form)</h3>
+
+        <p>Action Form은 버튼 목록이 있는 폼입니다.</p>
+
+        <div class="example">
+            <h4>예제: Action Form에 커스텀 요소 추가</h4>
+            <pre><code>{
+    "our_long_form_panel": {
+        "type": "panel",
+        "bindings": [
+            {
+                "binding_name": "#title_text"
+            }
+        ],
+        "controls": [
+            {
+                "our_custom_made_long_form": {
+                    "type": "image",
+                    "texture": "textures/items/apple",
+                    "size": [32, 32],
+                    "$title_needs_to_contain": "wiki_form:",
+                    "bindings": [
+                        {
+                            "binding_type": "view",
+                            "source_control_name": "our_long_form_panel",
+                            "source_property_name": "(not ((#title_text - $title_needs_to_contain) = #title_text))",
+                            "target_property_name": "#visible"
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+
+    "main_screen_content": {
+        "modifications": [
+            {
+                "array_name": "controls",
+                "operation": "insert_back",
+                "value": [
+                    {
+                        "wiki_server_form_factory": {
+                            "type": "panel",
+                            "factory": {
+                                "name": "server_form_factory",
+                                "control_ids": {
+                                    "long_form": "@server_form.our_long_form_panel"
+                                }
+                            }
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}</code></pre>
+        </div>
+
+        <h3>8.2 기존 폼 숨기기</h3>
+
+        <p>커스텀 폼이 기존 폼과 겹치지 않도록 하려면 기존 폼에도 바인딩을 추가해야 합니다.</p>
+
+        <div class="example">
+            <h4>예제: 기존 Long Form 숨기기</h4>
+            <pre><code>{
+    "long_form": {
+        "modifications": [
+            {
+                "array_name": "bindings",
+                "operation": "insert_back",
+                "value": [
+                    {
+                        "binding_name": "#title_text"
+                    },
+                    {
+                        "binding_type": "view",
+                        "source_property_name": "((#title_text - 'wiki_form:') = #title_text)",
+                        "target_property_name": "#visible"
+                    }
+                ]
+            }
+        ]
+    }
+}</code></pre>
+        </div>
+
+        <h3>8.3 Modal Form (Custom Form)</h3>
+
+        <p>Modal Form은 입력 필드와 슬라이더 등의 인터랙티브 요소를 포함할 수 있습니다.</p>
+
+        <div class="example">
+            <h4>예제: Modal Form 수정</h4>
+            <pre><code>{
+    "our_custom_form_panel": {
+        "type": "panel",
+        "bindings": [
+            {
+                "binding_name": "#title_text"
+            }
+        ],
+        "controls": [
+            {
+                "our_custom_made_custom_form": {
+                    "type": "image",
+                    "texture": "textures/items/apple",
+                    "size": [32, 32],
+                    "$title_needs_to_contain": "wiki_form:",
+                    "bindings": [
+                        {
+                            "binding_type": "view",
+                            "source_control_name": "our_custom_form_panel",
+                            "source_property_name": "(not ((#title_text - $title_needs_to_contain) = #title_text))",
+                            "target_property_name": "#visible"
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+
+    "main_screen_content": {
+        "modifications": [
+            {
+                "array_name": "controls",
+                "operation": "insert_back",
+                "value": [
+                    {
+                        "wiki_server_form_factory": {
+                            "type": "panel",
+                            "factory": {
+                                "name": "server_form_factory",
+                                "control_ids": {
+                                    "custom_form": "@server_form.our_custom_form_panel"
+                                }
+                            }
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}</code></pre>
+        </div>
+
+        <div class="info">
+            <strong>ℹ️ 참고:</strong> 서버 폼 타이틀에 특정 문자열(예: "wiki_form:")을 포함시켜 커스텀 폼을 표시할지 여부를 제어할 수 있습니다. 이를 통해 특정 폼만 커스텀 디자인으로 표시하고 나머지는 기본 디자인을 유지할 수 있습니다.
+        </div>
+
+        <h2 id="buttons">9. 버튼과 토글</h2>
+
+        <h3>9.1 버튼 생성</h3>
+
+        <div class="example">
+            <h4>예제: 기본 버튼</h4>
+            <pre><code>{
+    "our_button@common_buttons.light_text_button": {
+        "size": [64, 32],
+        "$button_text": "클릭하세요!",
+        "$pressed_button_name": "button.menu_exit"
+    }
+}</code></pre>
+        </div>
+
+        <h3>9.2 토글 생성</h3>
+
+        <div class="example">
+            <h4>예제: 기본 토글</h4>
+            <pre><code>{
+    "our_toggle@common_toggles.light_text_toggle": {
+        "size": [64, 32],
+        "$button_text": "토글",
+        "$toggle_name": "wiki_toggle",
+        "$toggle_view_binding_name": "wiki_toggle_state"
+    }
+}</code></pre>
+        </div>
+
+        <h3>9.3 토글로 UI 제어</h3>
+
+        <div class="example">
+            <h4>예제: 토글 상태로 이미지 표시 제어</h4>
+            <pre><code>{
+    "our_toggle@common_toggles.light_text_toggle": {
+        "size": [64, 32],
+        "$button_text": "이미지 표시",
+        "$toggle_name": "wiki_toggle",
+        "$toggle_view_binding_name": "wiki_toggle_state"
+    },
+
+    "our_image": {
+        "type": "image",
+        "texture": "textures/items/apple",
+        "size": [16, 16],
+        "offset": [0, 20],
+        "bindings": [
+            {
+                "binding_type": "view",
+                "source_control_name": "wiki_toggle_state",
+                "source_property_name": "#toggle_state",
+                "target_property_name": "#visible"
+            }
+        ]
+    }
+}</code></pre>
+        </div>
+
+        <h3>9.4 버튼 매핑</h3>
+
+        <p><code>button_mappings</code>를 사용하여 다양한 입력에 반응하도록 설정할 수 있습니다.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>mapping_type</th>
+                    <th>설명</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>focused</code></td>
+                    <td>버튼이 포커스될 때</td>
+                </tr>
+                <tr>
+                    <td><code>pressed</code></td>
+                    <td>버튼이 눌렸을 때</td>
+                </tr>
+                <tr>
+                    <td><code>global</code></td>
+                    <td>화면에 존재할 때 (전역)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>9.5 주요 버튼 ID</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>버튼 ID</th>
+                    <th>키보드/마우스</th>
+                    <th>컨트롤러</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>button.menu_select</code></td>
+                    <td>마우스 왼쪽 클릭</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>button.controller_select</code></td>
+                    <td>-</td>
+                    <td>X/A 버튼</td>
+                </tr>
+                <tr>
+                    <td><code>button.menu_ok</code></td>
+                    <td>ENTER 키</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>button.menu_exit</code></td>
+                    <td>ESC 키</td>
+                    <td>B 버튼</td>
+                </tr>
+                <tr>
+                    <td><code>button.menu_up</code></td>
+                    <td>↑ 키</td>
+                    <td>↑ DPAD</td>
+                </tr>
+                <tr>
+                    <td><code>button.menu_down</code></td>
+                    <td>↓ 키</td>
+                    <td>↓ DPAD</td>
+                </tr>
+                <tr>
+                    <td><code>button.menu_left</code></td>
+                    <td>← 키</td>
+                    <td>← DPAD</td>
+                </tr>
+                <tr>
+                    <td><code>button.menu_right</code></td>
+                    <td>→ 키</td>
+                    <td>→ DPAD</td>
+                </tr>
+                <tr>
+                    <td><code>button.menu_autocomplete</code></td>
+                    <td>TAB 키</td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>9.6 호버 텍스트 버튼</h3>
+
+        <div class="example">
+            <h4>예제: 호버 시 텍스트 표시</h4>
+            <pre><code>{
+    "our_button@common_buttons.light_content_button": {
+        "size": [18, 18],
+        "$button_content": "namespace.our_button_content_panel",
+        "$pressed_button_name": "button.menu_exit"
+    },
+
+    "our_button_content_panel": {
+        "type": "panel",
+        "controls": [
+            {
+                "our_image": {
+                    "type": "image",
+                    "texture": "textures/items/apple",
+                    "size": [16, 16]
+                }
+            },
+            {
+                "our_hover_text@common.hover_text": {
+                    "ignored": "$default_state",
+                    "property_bag": {
+                        "#hover_text": "버튼 위에 마우스를 올리세요!"
+                    }
+                }
+            }
+        ]
+    }
+}</code></pre>
+        </div>
+
+        <h2 id="operators">10. 연산자 사용</h2>
+
+        <p>JSON UI에서는 <code>$variables</code>와 <code>#bindings</code>와 함께 연산자를 사용할 수 있습니다.</p>
+
+        <h3>10.1 산술 연산자</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>연산자</th>
+                    <th>기호</th>
+                    <th>예시</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>덧셈</td>
+                    <td><code>+</code></td>
+                    <td>"100% + 20px", ($var + 5)</td>
+                </tr>
+                <tr>
+                    <td>뺄셈</td>
+                    <td><code>-</code></td>
+                    <td>"100% - 10px", ($var - 3)</td>
+                </tr>
+                <tr>
+                    <td>곱셈</td>
+                    <td><code>*</code></td>
+                    <td>($var * 2), (#value * 0.5)</td>
+                </tr>
+                <tr>
+                    <td>나눗셈</td>
+                    <td><code>/</code></td>
+                    <td>($var / 4), (#value / 2)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>10.2 비교 연산자</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>연산자</th>
+                    <th>기호</th>
+                    <th>예시</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>같음</td>
+                    <td><code>=</code></td>
+                    <td>($var = 12), (#name = 'text')</td>
+                </tr>
+                <tr>
+                    <td>큼</td>
+                    <td><code>></code></td>
+                    <td>(#value > 10)</td>
+                </tr>
+                <tr>
+                    <td>작음</td>
+                    <td><code><</code></td>
+                    <td>($var < 5)</td>
+                </tr>
+                <tr>
+                    <td>크거나 같음</td>
+                    <td><code>> or =</code></td>
+                    <td>(#value > 2 or #value = 2)</td>
+                </tr>
+                <tr>
+                    <td>작거나 같음</td>
+                    <td><code>< or =</code></td>
+                    <td>(#value < 2 or #value = 2)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>10.3 논리 연산자</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>연산자</th>
+                    <th>기호</th>
+                    <th>예시</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>AND</td>
+                    <td><code>and</code></td>
+                    <td>($is_enabled and $is_visible)</td>
+                </tr>
+                <tr>
+                    <td>OR</td>
+                    <td><code>or</code></td>
+                    <td>($is_red or $is_blue)</td>
+                </tr>
+                <tr>
+                    <td>NOT</td>
+                    <td><code>not</code></td>
+                    <td>(not #visible), (not ($var = 5))</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>10.4 문자열 연산자</h3>
+
+        <div class="example">
+            <h4>예제: 문자열 조작</h4>
+            <pre><code>{
+    // 문자열 연결
+    "text": "($first_name + ' ' + $last_name)",
+
+    // 문자열 제거
+    "visible": "((#title_text - 'prefix:') = #title_text)",
+
+    // 문자열 포함 체크
+    "visible": "(not ((#text - 'hidden') = #text))"
+}</code></pre>
+        </div>
+
+        <h3>10.5 조건부 렌더링</h3>
+
+        <div class="example">
+            <h4>예제: 변수로 조건부 표시</h4>
+            <pre><code>{
+    "conditional_element": {
+        "type": "image",
+        "texture": "textures/ui/Black",
+        "size": [16, 16],
+        "$atext": "$actionbar_text",
+        "visible": "($atext = 'show_element')"
+    }
+}</code></pre>
+        </div>
+
+        <div class="example">
+            <h4>예제: 바인딩으로 조건부 표시</h4>
+            <pre><code>{
+    "conditional_element": {
+        "type": "image",
+        "texture": "textures/ui/Black",
+        "size": [16, 16],
+        "bindings": [
+            {
+                "binding_name": "#hud_title_text_string"
+            },
+            {
+                "binding_type": "view",
+                "source_property_name": "(#hud_title_text_string = 'show_element')",
+                "target_property_name": "#visible"
+            }
+        ]
+    }
+}</code></pre>
+        </div>
+
+        <h2 id="modifications">11. 수정 전략</h2>
+
+        <p>비침투적인 방식으로 JSON UI를 수정하려면 <code>modifications</code> 속성을 사용하여 다른 팩의 기존 JSON UI 요소를 수정할 수 있습니다.</p>
+
+        <h3>11.1 수정 연산</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>연산</th>
+                    <th>설명</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>insert_back</code></td>
+                    <td>배열 끝에 삽입</td>
+                </tr>
+                <tr>
+                    <td><code>insert_front</code></td>
+                    <td>배열 시작에 삽입</td>
+                </tr>
+                <tr>
+                    <td><code>insert_after</code></td>
+                    <td>대상 뒤에 삽입</td>
+                </tr>
+                <tr>
+                    <td><code>insert_before</code></td>
+                    <td>대상 앞에 삽입</td>
+                </tr>
+                <tr>
+                    <td><code>move_back</code></td>
+                    <td>대상을 배열 끝으로 이동</td>
+                </tr>
+                <tr>
+                    <td><code>move_front</code></td>
+                    <td>대상을 배열 시작으로 이동</td>
+                </tr>
+                <tr>
+                    <td><code>move_after</code></td>
+                    <td>대상을 다른 대상 뒤로 이동</td>
+                </tr>
+                <tr>
+                    <td><code>move_before</code></td>
+                    <td>대상을 다른 대상 앞으로 이동</td>
+                </tr>
+                <tr>
+                    <td><code>swap</code></td>
+                    <td>두 대상의 위치 교환</td>
+                </tr>
+                <tr>
+                    <td><code>replace</code></td>
+                    <td>대상을 다른 것으로 교체</td>
+                </tr>
+                <tr>
+                    <td><code>remove</code></td>
+                    <td>대상 제거</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>11.2 수정 예제</h3>
+
+        <div class="example">
+            <h4>예제: 배열 끝에 삽입</h4>
+            <pre><code>{
+    "root_panel": {
+        "modifications": [
+            {
+                "array_name": "controls",
+                "operation": "insert_back",
+                "value": [
+                    {
+                        "my_custom_element@namespace.element": {}
+                    }
+                ]
+            }
+        ]
+    }
+}</code></pre>
+        </div>
+
+        <div class="example">
+            <h4>예제: 특정 요소 뒤에 삽입</h4>
+            <pre><code>{
+    "array_name": "controls",
+    "operation": "insert_after",
+    "control_name": "existing_control",
+    "value": [
+        {
+            "new_control@namespace.new_element": {}
+        }
+    ]
+}</code></pre>
+        </div>
+
+        <div class="example">
+            <h4>예제: 바인딩 제거</h4>
+            <pre><code>{
+    "array_name": "bindings",
+    "operation": "remove",
+    "where": {
+        "binding_name": "#binding_to_remove"
+    }
+}</code></pre>
+        </div>
+
+        <h2 id="best-practices">12. 베스트 프랙티스</h2>
+
+        <h3>12.1 호환성 최대화</h3>
+
+        <div class="tip">
+            <strong>✅ 권장사항:</strong>
+            <ul>
+                <li><strong>필요한 것만 수정:</strong> 전체 파일을 복사하지 말고 변경하려는 속성만 수정하세요</li>
+                <li><strong>수정 전략 활용:</strong> <code>modifications</code> 배열을 사용하여 기존 요소를 수정하세요</li>
+                <li><strong>단일 진입점 사용:</strong> 가능한 한 하나의 진입점에서 커스텀 UI를 병합하세요</li>
+                <li><strong>바닐라 네임스페이스 회피:</strong> 커스텀 네임스페이스에서 작업하세요</li>
+            </ul>
+        </div>
+
+        <div class="warning">
+            <strong>❌ 피해야 할 것:</strong>
+            <ul>
+                <li>바닐라 UI 파일 전체를 복사하는 것</li>
+                <li>불필요한 속성을 포함하는 것</li>
+                <li>중첩된 트리를 직접 수정하는 것</li>
+                <li>여러 진입점을 사용하는 것</li>
+            </ul>
+        </div>
+
+        <h3>12.2 성능 최적화</h3>
+
+        <div class="info">
+            <strong>성능 팁:</strong>
+            <ul>
+                <li><strong>연산자 최소화:</strong> 복잡한 연산식을 단순화하세요</li>
+                <li><strong>바인딩 최소화:</strong> 불필요한 바인딩을 제거하세요</li>
+                <li><strong>불필요한 컨트롤 제거:</strong> <code>"ignored": true</code>를 사용하거나 삭제하세요</li>
+                <li><strong>visible vs ignored:</strong> <code>visible: false</code>는 여전히 평가되지만, <code>ignored: true</code>는 완전히 무시됩니다</li>
+            </ul>
+        </div>
+
+        <h2 id="terminology">13. 전체 용어 정리</h2>
+
+        <h3>13.1 핵심 개념</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>용어</th>
+                    <th>설명</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Element</strong></td>
+                    <td>JSON UI의 기본 구성 요소. 고유한 이름을 가져야 함</td>
+                </tr>
+                <tr>
+                    <td><strong>Namespace</strong></td>
+                    <td>UI 파일의 식별자. 요소에 액세스하는 데 사용</td>
+                </tr>
+                <tr>
+                    <td><strong>Screen</strong></td>
+                    <td>게임이 직접 호출하는 루트 요소를 포함하는 파일</td>
+                </tr>
+                <tr>
+                    <td><strong>Control</strong></td>
+                    <td>UI 요소의 다른 이름 (컨트롤)</td>
+                </tr>
+                <tr>
+                    <td><strong>Factory</strong></td>
+                    <td>하드코딩된 데이터를 전달하며 요소를 동적으로 생성하는 생성기</td>
+                </tr>
+                <tr>
+                    <td><strong>Binding</strong></td>
+                    <td>하드코딩된 값을 요소에 연결하는 메커니즘</td>
+                </tr>
+                <tr>
+                    <td><strong>Variable</strong></td>
+                    <td><code>$</code>로 시작하는 데이터 저장소</td>
+                </tr>
+                <tr>
+                    <td><strong>Property Bag</strong></td>
+                    <td>UI 구조보다는 데이터와 관련된 속성/변수 컨테이너</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>13.2 파일 용어</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>파일명</th>
+                    <th>용도</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>_ui_defs.json</code></td>
+                    <td>모든 UI 파일 참조 정의</td>
+                </tr>
+                <tr>
+                    <td><code>_global_variables.json</code></td>
+                    <td>전역 변수 정의</td>
+                </tr>
+                <tr>
+                    <td><code>hud_screen.json</code></td>
+                    <td>메인 게임플레이 HUD 화면</td>
+                </tr>
+                <tr>
+                    <td><code>server_form.json</code></td>
+                    <td>서버 폼 UI</td>
+                </tr>
+                <tr>
+                    <td><code>ui_common.json</code></td>
+                    <td>공통 UI 템플릿</td>
+                </tr>
+                <tr>
+                    <td><code>ui_template_*.json</code></td>
+                    <td>특정 템플릿 파일들</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>13.3 속성 접두사</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>접두사</th>
+                    <th>의미</th>
+                    <th>예시</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>$</code></td>
+                    <td>변수</td>
+                    <td>$my_variable, $button_size</td>
+                </tr>
+                <tr>
+                    <td><code>#</code></td>
+                    <td>바인딩</td>
+                    <td>#text, #visible, #toggle_state</td>
+                </tr>
+                <tr>
+                    <td><code>@</code></td>
+                    <td>참조</td>
+                    <td>@namespace.element</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>13.4 주요 바인딩</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>바인딩</th>
+                    <th>설명</th>
+                    <th>사용 위치</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>#visible</code></td>
+                    <td>표시 여부</td>
+                    <td>모든 요소</td>
+                </tr>
+                <tr>
+                    <td><code>#enabled</code></td>
+                    <td>활성화 여부</td>
+                    <td>모든 요소</td>
+                </tr>
+                <tr>
+                    <td><code>#text</code></td>
+                    <td>텍스트 내용</td>
+                    <td>label 요소</td>
+                </tr>
+                <tr>
+                    <td><code>#texture</code></td>
+                    <td>텍스처 경로</td>
+                    <td>image 요소</td>
+                </tr>
+                <tr>
+                    <td><code>#toggle_state</code></td>
+                    <td>토글 상태</td>
+                    <td>toggle 요소</td>
+                </tr>
+                <tr>
+                    <td><code>#title_text</code></td>
+                    <td>폼 타이틀</td>
+                    <td>서버 폼</td>
+                </tr>
+                <tr>
+                    <td><code>#hud_title_text_string</code></td>
+                    <td>타이틀 명령어 텍스트</td>
+                    <td>HUD</td>
+                </tr>
+                <tr>
+                    <td><code>#collection_length</code></td>
+                    <td>컬렉션 길이</td>
+                    <td>컬렉션</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>13.5 전역 변수</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>변수</th>
+                    <th>설명</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>$game_pad</code></td>
+                    <td>컨트롤러 연결 여부</td>
+                </tr>
+                <tr>
+                    <td><code>$mouse</code></td>
+                    <td>마우스 연결 여부</td>
+                </tr>
+                <tr>
+                    <td><code>$touch</code></td>
+                    <td>터치 입력 사용 가능 여부</td>
+                </tr>
+                <tr>
+                    <td><code>$desktop_screen</code></td>
+                    <td>클래식 UI 선택 여부</td>
+                </tr>
+                <tr>
+                    <td><code>$pocket_screen</code></td>
+                    <td>포켓 UI 선택 여부</td>
+                </tr>
+                <tr>
+                    <td><code>$education_edition</code></td>
+                    <td>교육용 에디션 여부</td>
+                </tr>
+                <tr>
+                    <td><code>$is_pregame</code></td>
+                    <td>게임 밖 화면 여부</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>13.6 커스텀 렌더러</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>렌더러</th>
+                    <th>설명</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>inventory_item_renderer</code></td>
+                    <td>아이템 아이콘 렌더링</td>
+                </tr>
+                <tr>
+                    <td><code>live_player_renderer</code></td>
+                    <td>플레이어 모델</td>
+                </tr>
+                <tr>
+                    <td><code>hud_player_renderer</code></td>
+                    <td>플레이어 동작을 따라하는 HUD 플레이어 모델</td>
+                </tr>
+                <tr>
+                    <td><code>heart_renderer</code></td>
+                    <td>플레이어 체력</td>
+                </tr>
+                <tr>
+                    <td><code>hunger_renderer</code></td>
+                    <td>플레이어 배고픔</td>
+                </tr>
+                <tr>
+                    <td><code>armor_renderer</code></td>
+                    <td>플레이어 방어구</td>
+                </tr>
+                <tr>
+                    <td><code>hotbar_renderer</code></td>
+                    <td>핫바 슬롯 이미지</td>
+                </tr>
+                <tr>
+                    <td><code>paper_doll_renderer</code></td>
+                    <td>스킨 모델</td>
+                </tr>
+                <tr>
+                    <td><code>hover_text_renderer</code></td>
+                    <td>툴팁</td>
+                </tr>
+                <tr>
+                    <td><code>gradient_renderer</code></td>
+                    <td>그라데이션</td>
+                </tr>
+                <tr>
+                    <td><code>progress_bar_renderer</code></td>
+                    <td>진행 바</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="footer">
+            <p>마인크래프트 베드락 에디션 JSON UI 완벽 가이드</p>
+            <p>이 문서는 베드락 위키 스타일로 작성되었습니다.</p>
+            <p>JSON UI는 Ore UI로 대체될 예정이니 참고하시기 바랍니다.</p>
+        </div>
+    </div>
+</body>
+</html>
